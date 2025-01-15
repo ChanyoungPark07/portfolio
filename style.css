@@ -92,6 +92,7 @@ form button {
 }
 
 .resume h2 {
-  background-color: oklch(from var(--color-accent) 95% 5% h);
   text-align: center;
+  border-radius: 100%;
+  background-color: oklch(from var(--color-accent) 95% 5% h);
 }
