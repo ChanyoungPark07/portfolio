@@ -22,6 +22,12 @@ h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
 }
 
+#home_image {
+  width: 500;
+  height: 500px;
+  border-radius: 50%;
+}
+
 nav {
   display: flex;
   border-bottom: 1px solid oklch(80% 3% 200);
@@ -82,5 +88,10 @@ form button {
 }
 
 .resume section {
-  display: grid;
+  border-bottom: 0.4em solid var(--color-accent);
+}
+
+.resume h2 {
+  background-color: oklch(from var(--color-accent) 95% 5% h);
+  text-align: center;
 }
