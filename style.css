@@ -1,6 +1,7 @@
 :root {
   --color-accent: oklch(77.35% 0.1135 250.94);
-  accent-color: var(--color-accent)
+  accent-color: var(--color-accent);
+  color-scheme: light dark;
 }
 
 body {
@@ -31,6 +32,8 @@ h1, h2, h3, h4, h5, h6 {
 nav {
   display: flex;
   border-bottom: 1px solid oklch(80% 3% 200);
+  --border-color: oklch(50% 10% 200 / 40%);
+  border-bottom-color: var(--border-color);
   margin-bottom: 2ch;
 }
 
@@ -45,16 +48,24 @@ nav a {
 nav a.current {
   font-weight: bold;
   border-bottom: 0.4em solid oklch(80% 3% 200);
+  border-bottom-color: oklch(50% 10% 200 / 40%);
   padding-bottom: 0px;
 }
 
 a:hover {
   border-bottom: 0.4em solid var(--color-accent);
-  background-color: oklch(from var(--color-accent) 95% 5% h);
+  background-color: color-mix(in oklch, var(--color-accent), canvas 15%);
   padding-bottom: 0px;
 }
 
-form input, textarea, button {
+label.color-scheme {
+  font-size: 80%;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+input, textarea, button, select{
   font: inherit;
 }
 
@@ -94,5 +105,5 @@ form button {
 .resume h2 {
   text-align: center;
   border-radius: 100%;
-  background-color: oklch(from var(--color-accent) 95% 5% h);
+  background-color: color-mix(in oklch, var(--color-accent), canvas 15%);
 }
