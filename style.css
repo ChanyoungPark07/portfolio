@@ -1,3 +1,4 @@
+/* General */
 :root {
   --color-accent: oklch(77.35% 0.1135 250.94);
   accent-color: var(--color-accent);
@@ -23,12 +24,32 @@ h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
 }
 
+/* Home page */
 #home_image {
   width: 500;
   height: 500px;
   border-radius: 50%;
 }
 
+#profile-stats dl{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-bottom: 2%;
+}
+
+#profile-stats dt{
+  grid-row: 1;
+  font-size: 100%;
+  color: gray;
+}
+
+#profile-stats dd{
+  grid-row: 2;
+  font-size: 125%;
+  margin: 0;
+}
+
+/* Navigation bar */
 nav {
   display: flex;
   border-bottom: 1px solid oklch(80% 3% 200);
@@ -65,6 +86,7 @@ label.color-scheme {
   right: 1rem;
 }
 
+/* Contact Form */
 input, textarea, button, select{
   font: inherit;
 }
@@ -84,6 +106,7 @@ form button {
   grid-column: 1/-1;
 }
 
+/* Projects */
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
@@ -98,6 +121,12 @@ form button {
   margin: 0;
 }
 
+.projects article p {
+  font-size: 60%;
+  font-weight: normal;
+}
+
+/* Resume */
 .resume section {
   border-bottom: 0.4em solid var(--color-accent);
 }

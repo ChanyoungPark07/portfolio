@@ -1,0 +1,74 @@
+[
+    {
+        "title": "Portfolio Website",
+        "year": "2025",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Created a personal porfolio website using HTML, CSS, and JavaScript."
+    },
+    {
+        "title": "Single Cell RNA Sequencing Analysis",
+        "year": "2025",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Simulated multiple single cell RNA sequencing matrices and analyzed patterns and trends"
+    },
+    {
+        "title": "Audio Interpretability",
+        "year": "2025",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Led a mechanistic interpretability project by analyzing the semantics of individual hidden units within deep auditory networks trained for sound recognition tasks. Analyzed over 200,000 rows of audio data, completed correlation analysis using interpolated embeddings of audio files, and generated visualizations to understand data trends."
+    },
+    {
+        "title": "Recipe Investigation Project",
+        "year": "2024",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Used a dataset of 250,000 rows to explore trends and predictions of different recipes and cuisines. Explored assessment of missingness, hypothesis and permutation testing, model training using feature engineering and Random Forest classifier achieving an F1-score of 84% for cuisine prediction, and model fairness analysis."
+    },
+    {
+        "title": "FRED API Recession Analysis",
+        "year": "2024",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Created a comprehensive dashboard for analyzing economic data related to recessions using the FRED API. The dashboard, built with Streamlit, allows users to explore various economic factors over different timeframes and recession periods. The visualization is paired with specific recession context and detailed explanations of the factors behind each recession."
+    },
+    {
+        "title": "Auditory Sound Recognition using Deep Learning ",
+        "year": "2024",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Created an audio number detection model using a convolutional neural network architecture. Predicted a number between 0 and 9 based on raw audio waveforms converted to spectrograms."
+    },
+    {
+        "title": "Data Science Repository",
+        "year": "2023",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Proactively sourced, imported, and analyzed diverse datasets from Kaggle and UCI Machine Learning Repository. Gained knowledge of a wide range of machine learning concepts and techniques through projects and tutorials."
+    },
+    {
+        "title": "Personal Website",
+        "year": "2023",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Applied skills acquired from online resources and documentation to develop a personal website using VSCode."
+    },
+    {
+        "title": "Project 1 Comming Soon",
+        "year": "2025",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Description Comming Soon"
+    },
+    {
+        "title": "Project 2 Comming Soon",
+        "year": "2025",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Description Comming Soon"
+    },
+    {
+        "title": "Project 3 Comming Soon",
+        "year": "2025",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Description Comming Soon"
+    },
+    {
+        "title": "Project 4 Comming Soon",
+        "year": "2025",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Description Comming Soon"
+    }
+]
