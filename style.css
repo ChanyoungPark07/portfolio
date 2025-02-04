@@ -136,3 +136,11 @@ form button {
   border-radius: 100%;
   background-color: color-mix(in oklch, var(--color-accent), canvas 15%);
 }
+
+svg {
+  max-width: 20em;
+  margin-block: 2em;
+
+  /* Do not clip shapes outside the viewBox */
+  overflow: visible;
+}
