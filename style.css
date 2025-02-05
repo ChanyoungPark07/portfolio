@@ -126,6 +126,39 @@ form button {
   font-weight: normal;
 }
 
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11em, 1fr));
+  gap: 0.5em;
+  padding: 0.5em;
+  margin: 1em;
+  flex: 1;
+  min-width: 7em;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+.swatch {
+  width: 1em;
+  aspect-ratio: 1 / 1;
+  background-color: var(--color);
+  border-radius: 25%;
+}
+
+.searchBar {
+  width: 100%;
+  margin-bottom: 2em;
+}
+
 /* Resume */
 .resume section {
   border-bottom: 0.4em solid var(--color-accent);
