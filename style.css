@@ -109,20 +109,21 @@ form button {
 /* Projects */
 .projects {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
 }
 
 .projects article {
   grid-template-rows: subgrid;
   grid-row: span 3;
+  margin: 1%;
 }
 
-.projects h2 {
+.projects article h2 {
   margin: 0;
 }
 
 .projects article p {
-  font-size: 60%;
+  font-size: 85%;
   font-weight: normal;
 }
 

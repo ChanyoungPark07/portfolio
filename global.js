@@ -108,7 +108,7 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
     const {title='Untitled Project', image='', description='Description Unavailable'} = project;
 
     article.innerHTML = `
-      <${headingLevel}>${project.title}<${headingLevel}>
+      <${headingLevel}>${project.title}</${headingLevel}>
       <img src="${project.image}" alt="${project.title}">
       <p>${project.year} | ${project.description}</p>
     `;
