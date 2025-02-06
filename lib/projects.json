@@ -6,7 +6,7 @@
         "description": "Created a personal porfolio website using HTML, CSS, and JavaScript."
     },
     {
-        "title": "Single Cell RNA Sequencing Analysis",
+        "title": "scRNA Sequencing Analysis",
         "year": "2025",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Simulated multiple single cell RNA sequencing matrices and analyzed patterns and trends"
@@ -30,7 +30,7 @@
         "description": "Created a comprehensive dashboard for analyzing economic data related to recessions using the FRED API. The dashboard, built with Streamlit, allows users to explore various economic factors over different timeframes and recession periods. The visualization is paired with specific recession context and detailed explanations of the factors behind each recession."
     },
     {
-        "title": "Auditory Sound Recognition using Deep Learning ",
+        "title": "Auditory Sound Recognition using Deep Learning",
         "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Created an audio number detection model using a convolutional neural network architecture. Predicted a number between 0 and 9 based on raw audio waveforms converted to spectrograms."

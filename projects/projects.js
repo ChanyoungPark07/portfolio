@@ -28,6 +28,7 @@ function renderPieChart(projectsGiven) {
   let newArcData = newSliceGenerator(newData);
   let newArcs = newArcData.map((d) => arcGenerator(d));
 
+  let selectedIndex = -1;
   let newSVG = d3.select('svg'); 
   newSVG.selectAll('path').remove();
   
@@ -36,6 +37,29 @@ function renderPieChart(projectsGiven) {
       .append('path')
       .attr('d', arc)
       .attr('fill', colors(idx))
+      .on('click', () => {
+        selectedIndex = selectedIndex === idx ? -1 : idx;
+
+        newSVG
+          .selectAll('path')
+          .attr('class', (_, idx) => (
+            idx === selectedIndex ? 'selected' : ''
+          ));
+
+        legend
+          .selectAll('li')
+          .attr('class', (_, idx) => (
+            idx === selectedIndex ? 'selected' : ''
+          ));
+
+          if (selectedIndex === -1) {
+            renderProjects(projects, projectsContainer, 'h2');
+          } else {
+            let selectedYear = newData[selectedIndex].label;
+            let filteredProjects = projectsGiven.filter((project) => project.year === selectedYear);
+            renderProjects(filteredProjects, projectsContainer, 'h2');
+          }
+      });
   })
 
   let legend = d3.select('.legend');
@@ -45,6 +69,7 @@ function renderPieChart(projectsGiven) {
       .attr('style', `--color:${colors(idx)}`)
       .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`);
   })
+
 
   if (projectsGiven.length === 0) {
     legend.style('border', 'none');

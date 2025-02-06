@@ -160,6 +160,25 @@ form button {
   margin-bottom: 2em;
 }
 
+&:has(path:hover) {
+  path:not(:hover) {
+    opacity: 0.5;
+  }
+}
+
+path {
+  transition: 300ms;
+  cursor: pointer;
+}
+
+.selected {
+  --color: oklch(60% 45% 0) !important;
+
+  &:is(path) {
+    fill: var(--color);
+  }
+}
+
 /* Resume */
 .resume section {
   border-bottom: 0.4em solid var(--color-accent);
