@@ -13,9 +13,9 @@ if (profileStats) {
     profileStats.innerHTML = `
         <dl>
         <dt>SINCE</dt><dd>${githubData.created_at.split('T')[0]}</dd>
+        <dt>PUBLIC REPOS</dt><dd>${githubData.public_repos}</dd>
         <dt>FOLLOWERS</dt><dd>${githubData.followers}</dd>
         <dt>FOLLOWING</dt><dd>${githubData.following}</dd>
-        <dt>PUBLIC REPOS</dt><dd>${githubData.public_repos}</dd>
         </dl>
     `;
   }
