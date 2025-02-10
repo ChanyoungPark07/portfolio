@@ -26,8 +26,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Home page */
 #home_image {
-  width: 500;
-  height: 500px;
+  width: 400px;
+  height: 375px;
   border-radius: 50%;
 }
 
@@ -179,21 +179,82 @@ path {
   }
 }
 
+svg {
+  max-width: 20em;
+  margin-block: 2em;
+  overflow: visible;
+}
+
 /* Resume */
 .resume section {
-  border-bottom: 0.4em solid var(--color-accent);
+  border-top: 0.4em solid var(--color-accent);
 }
 
 .resume h2 {
   text-align: center;
-  border-radius: 100%;
-  background-color: color-mix(in oklch, var(--color-accent), canvas 15%);
 }
 
-svg {
-  max-width: 20em;
-  margin-block: 2em;
+/* Meta */
+#stats dl{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-bottom: 2%;
+}
 
-  /* Do not clip shapes outside the viewBox */
-  overflow: visible;
+#stats dt{
+  grid-row: 1;
+  font-size: 100%;
+  color: gray;
+}
+
+#stats dd{
+  grid-row: 2;
+  font-size: 125%;
+  margin: 0;
+}
+
+#commit-tooltip {
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 1em;
+  backdrop-filter: blur(10px);
+}
+
+dl.info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  margin: 0;
+  transition-duration: 500ms;
+  transition-property: opacity, visibility;
+}
+
+dl.info[hidden]:not(:hover, :focus-within) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+dl.info dt {
+  font-weight: normal;
+  color: gray;
+}
+
+dl.info dd {
+  margin: 0;
+}
+
+.tooltip {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+}
+
+circle {
+  transition: 200ms;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+circle:hover {
+  transform: scale(1.5);
 }

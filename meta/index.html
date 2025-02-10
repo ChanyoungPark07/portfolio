@@ -10,6 +10,32 @@
     <h1>Meta</h1>
     <p>This page includes stats about the code in this website.</p>
 
+    <h2>Meta Stats</h2>
+    <div id="stats"></div>
+
+    <h2>Commits by Time of Day</h2>
+    <div id="chart"></div>
+    <dl id="commit-tooltip" class="info tooltip">
+        <dt>Commit</dt>
+        <dd>
+          <a href="" id="commit-link" target="_blank"></a>
+        </dd>
+      
+        <dt>Date</dt>
+        <dd id="commit-date"></dd>
+
+        <dt>Time</dt>
+        <dd id="commit-time"></dd>
+
+        <dt>Author</dt>
+        <dd id="commit-author"></dd>
+
+        <dt>Lines</dt>
+        <dd id="commit-edited"></dd>
+      </dl>
+
     <script src="../global.js" type="module"></script>
+    <script src="main.js" type="module"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </body>
 </html>
