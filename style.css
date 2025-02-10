@@ -240,7 +240,7 @@ dl.info dt {
 }
 
 dl.info dd {
-  margin: 0;
+  text-align: right;
 }
 
 .tooltip {
