@@ -1,5 +1,7 @@
 let data = [];
 let commits = [];
+let xScale = null;
+let yScale = null;
 
 // Load data
 async function loadData() {
@@ -84,33 +86,42 @@ function createScatterplot() {
     .attr('height', height)
     .style('overflow', 'visible');
 
-    const xScale = d3
+    xScale = d3
     .scaleTime()
     .domain(d3.extent(commits, (d) => d.datetime))
     .range([0, width])
     .nice();
 
-    const yScale = d3.scaleLinear().domain([0, 24]).range([height, 0]);
+    yScale = d3.scaleLinear().domain([0, 24]).range([height, 0]);
+
+    const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
+    const rScale = d3.scaleSqrt().domain([minLines, maxLines]).range([3, 30]);
+
+    // Sort commits by total lines in descending order
+    const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
 
     const dots = svg.append('g').attr('class', 'dots');
     dots
     .selectAll('circle')
-    .data(commits)
+    .data(sortedCommits)
     .join('circle')
     .attr('cx', (d) => xScale(d.datetime))
     .attr('cy', (d) => yScale(d.hourFrac))
-    .attr('r', 5)
+    .attr('r', (d) => rScale(d.totalLines))
+    .style('fill-opacity', 0.6)
     .attr('fill', 'steelblue')
     .on('mouseenter', (event, commit) => {
+        d3.select(event.currentTarget).style('fill-opacity', 1)
         updateTooltipContent(commit);
         updateTooltipVisibility(true);
         updateTooltipPosition(event);
       })
-      .on('mouseleave', () => {
+    .on('mouseleave', (event) => {
+        d3.select(event.currentTarget).style('fill-opacity', 0.6);
         updateTooltipContent({});
         updateTooltipVisibility(false);
-      })
-
+      });
+    
     const margin = { top: 10, right: 10, bottom: 30, left: 20 };
     const usableArea = {
         top: margin.top,
@@ -185,7 +196,78 @@ function updateTooltipPosition(event) {
     tooltip.style.top = `${event.clientY}px`;
 }
 
+// Brushsing
+function brushSelector() {
+    const svg = document.querySelector('svg');
+    d3.select(svg).call(d3.brush().on('start brush end', brushed));
+    d3.select(svg).selectAll('.dots, .overlay ~ *').raise();
+}
+
+let brushSelection = null;
+
+function brushed(event) {
+  brushSelection = event.selection;
+  updateSelection();
+  updateLanguageBreakdown();
+}
+
+function isCommitSelected(commit) {
+  if (!brushSelection) {
+    return false;
+  }
+  const min = { x: brushSelection[0][0], y: brushSelection[0][1] }; 
+  const max = { x: brushSelection[1][0], y: brushSelection[1][1] }; 
+  const x = xScale(commit.date); 
+  const y = yScale(commit.hourFrac); 
+  return x >= min.x && x <= max.x && y >= min.y && y <= max.y;
+}
+
+function updateSelection() {
+  // Update visual state of dots based on selection
+  d3.selectAll('circle').classed('selected', (d) => isCommitSelected(d));
+  const selectedCommits = brushSelection ? commits.filter(isCommitSelected) : [];
+
+  const countElement = document.getElementById('selection-count');
+  countElement.textContent = `${selectedCommits.length || 'No'} commits selected`;
+
+  return selectedCommits;
+}
+
+function updateLanguageBreakdown() {
+    const selectedCommits = brushSelection ? commits.filter(isCommitSelected) : [];
+    const container = document.getElementById('language-breakdown');
+  
+    if (selectedCommits.length === 0) {
+      container.innerHTML = '';
+      return;
+    }
+    const requiredCommits = selectedCommits.length ? selectedCommits : commits;
+    const lines = requiredCommits.flatMap((d) => d.lines);
+  
+    // Use d3.rollup to count lines per language
+    const breakdown = d3.rollup(
+      lines,
+      (v) => v.length,
+      (d) => d.type
+    );
+  
+    // Update DOM with breakdown
+    container.innerHTML = '';
+  
+    for (const [language, count] of breakdown) {
+      const proportion = count / lines.length;
+      const formatted = d3.format('.1~%')(proportion);
+
+      container.innerHTML += `
+              <dt>${language}</dt>
+              <dd>${count} lines (${formatted})</dd>
+          `;
+    }
+}
+
+// Main
 document.addEventListener('DOMContentLoaded', async () => {
     await loadData();
     createScatterplot();
+    brushSelector();
 });

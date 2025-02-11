@@ -225,7 +225,7 @@ dl.info {
   display: grid;
   grid-template-columns: auto 1fr;
   margin: 0;
-  transition-duration: 500ms;
+  transition-duration: 300ms;
   transition-property: opacity, visibility;
 }
 
@@ -257,4 +257,39 @@ circle {
 
 circle:hover {
   transform: scale(1.5);
+}
+
+@keyframes marching-ants {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+.selection {
+  fill-opacity: 0.1;
+  stroke: gray;
+  stroke-opacity: 0.7;
+  stroke-dasharray: 5 3;
+  animation: marching-ants 2s linear infinite;
+}
+
+circle.selected {
+  fill: #ff6b6b;
+}
+
+#language-breakdown dl{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-bottom: 2%;
+}
+
+#language-breakdown dt{
+  grid-row: 1;
+  font-size: 100%;
+  color: gray;
+}
+
+#language-breakdown dd{
+  grid-row: 2;
+  font-size: 125%;
+  margin: 0;
 }
