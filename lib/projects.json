@@ -48,6 +48,12 @@
         "description": "Applied skills acquired from online resources and documentation to develop a personal website using VSCode."
     },
     {
+        "title": "Boston Bike Traffic Geospatial Visualization",
+        "year": "2025",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Created a visualization of bike traffic in the Boston area during different times of the day"
+    },
+    {
         "title": "Project 1 Comming Soon",
         "year": "2025",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
@@ -61,12 +67,6 @@
     },
     {
         "title": "Project 3 Comming Soon",
-        "year": "2025",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Description Comming Soon"
-    },
-    {
-        "title": "Project 4 Comming Soon",
         "year": "2025",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Description Comming Soon"
