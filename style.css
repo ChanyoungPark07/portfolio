@@ -293,3 +293,16 @@ circle.selected {
   font-size: 125%;
   margin: 0;
 }
+
+/* Commit Slider */
+#filter-container {
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+}
+#commit-slider {
+  flex: 1;
+}
+#selectedTime {
+  margin-left: auto;
+}
