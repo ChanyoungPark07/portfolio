@@ -2,7 +2,7 @@ let data = [];
 let commits = [];
 let xScale = null;
 let yScale = null;
-let timeScale = null; // Declare timeScale but don't initialize yet
+let timeScale = null;
 
 // Load data
 async function loadData() {
@@ -275,7 +275,6 @@ function updateLanguageBreakdown() {
 
 // Initialize slider
 function initializeSlider() {
-    // Only initialize timeScale after commits are loaded
     timeScale = d3.scaleTime()
         .domain([
             d3.min(commits, d => d.datetime),
@@ -286,15 +285,13 @@ function initializeSlider() {
     let commitProgress = 100;
     const selectedTime = d3.select('#selectedTime');
     
-    // Format the date with the specified format
     const formatDate = (date) => {
         return date.toLocaleString('default', {
             dateStyle: 'long',
             timeStyle: 'short'
         });
     };
-    
-    // Initial date display
+
     selectedTime.text(formatDate(timeScale.invert(commitProgress)));
     
     const slider = document.getElementById('commit-slider');
@@ -311,5 +308,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadData();
     createScatterplot();
     brushSelector();
-    initializeSlider(); // Initialize the slider after data is loaded
+    initializeSlider();
 });
