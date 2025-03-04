@@ -1,4 +1,8 @@
 /* General */
+:global(body) {
+  max-width: min(120ch, 80vw);
+}
+
 :root {
   --color-accent: oklch(77.35% 0.1135 250.94);
   accent-color: var(--color-accent);
@@ -260,6 +264,7 @@ circle {
 
 circle:hover {
   transform: scale(1.5);
+  fill: #ff6b6b;
 }
 
 @keyframes marching-ants {
@@ -324,4 +329,70 @@ circle.selected {
 
 .files dd {
   grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  align-content: start;
+  gap: 0.15em;
+  padding-top: 0.6em;
+  margin-left: 0;
+}
+
+.files dt:nth-of-type(2) {
+  color: gray;
+}
+
+.line {
+  display: flex;
+  width: 0.5em;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+/* Storytelling */
+#scrollytelling {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+#scroll-container {
+  grid-column: 1;
+  position: relative;
+  width: 80%;
+  height: 500px;
+  overflow-y: scroll;
+  border: 1px solid #ccc;
+  margin-bottom: 50px;
+}
+
+#chart {
+  grid-column: 2;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: -100px;
+}
+
+#spacer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: none;
+  pointer-events: none;
+}
+
+#items-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.item {
+  height: 30px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-bottom: 2px solid #eee;
 }

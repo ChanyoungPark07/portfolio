@@ -14,22 +14,29 @@
     <div id="stats"></div>
 
     <h2>Commits by Time of Day</h2>
-    <div id="filter-container">
-      <label for="commit-slider">Show commits until:</label>
-      <input type="range" id="commit-slider" min="0" max="100" value="0">
-      <time id="selectedTime"></time>
-    </div>
-
+    
     <dl class="files">
       <div>
         <dt>
           <code>{file.name}</code>
         </dt>
-        <dd>{file.lines.length} lines</dd>
+        <dt>
+          <code>{file.length}</code>
+        </dt>
+        <dd>
+          <div class="line"></div>
+        </dd>
       </div>
     </dl>
     
-    <div id="chart"></div>
+    <div id="scrollytelling">
+      <div id="scroll-container">
+          <div id="spacer"></div>
+          <div id="items-container"></div>
+      </div>
+      <div id="chart"></div>
+    </div>
+  
     <dl id="commit-tooltip" class="info tooltip" hidden>
         <dt>Commit</dt>
         <dd>
