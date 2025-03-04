@@ -19,6 +19,15 @@
       <input type="range" id="commit-slider" min="0" max="100" value="0">
       <time id="selectedTime"></time>
     </div>
+
+    <dl class="files">
+      <div>
+        <dt>
+          <code>{file.name}</code>
+        </dt>
+        <dd>{file.lines.length} lines</dd>
+      </div>
+    </dl>
     
     <div id="chart"></div>
     <dl id="commit-tooltip" class="info tooltip" hidden>
