@@ -382,6 +382,26 @@ function updateLanguageBreakdown() {
   }
 }
 
+// Display commit files
+function displayCommitFiles() {
+  const lines = filteredCommits.flatMap((d) => d.lines);
+  let fileTypeColors = d3.scaleOrdinal(d3.schemeTableau10);
+  let files = d3.groups(lines, (d) => d.file).map(([name, lines]) => {
+    return { name, lines };
+  });
+  files = d3.sort(files, (d) => -d.lines.length);
+  d3.select('.files').selectAll('div').remove();
+  let filesContainer = d3.select('.files').selectAll('div').data(files).enter().append('div');
+  filesContainer.append('dt').html(d => `<code>${d.name}</code><small> --> ${d.lines.length} lines</small>`);
+  filesContainer.append('dd')
+                .selectAll('div')
+                .data(d => d.lines)
+                .enter()
+                .append('div')
+                .attr('class', 'line')
+                .style('background', d => fileTypeColors(d.type));
+}
+
 // Setup scroll container
 function setupScrollContainer() {
   const NUM_ITEMS = commits.length;
@@ -490,26 +510,6 @@ function renderItems() {
   });
 }
 
-// Display commit files
-function displayCommitFiles() {
-  const lines = filteredCommits.flatMap((d) => d.lines);
-  let fileTypeColors = d3.scaleOrdinal(d3.schemeTableau10);
-  let files = d3.groups(lines, (d) => d.file).map(([name, lines]) => {
-    return { name, lines };
-  });
-  files = d3.sort(files, (d) => -d.lines.length);
-  d3.select('.files').selectAll('div').remove();
-  let filesContainer = d3.select('.files').selectAll('div').data(files).enter().append('div');
-  filesContainer.append('dt').html(d => `<code>${d.name}</code><small> --> ${d.lines.length} lines</small>`);
-  filesContainer.append('dd')
-                .selectAll('div')
-                .data(d => d.lines)
-                .enter()
-                .append('div')
-                .attr('class', 'line')
-                .style('background', d => fileTypeColors(d.type));
-}
-
 // Setup scroll container for file lines information
 function setupFileScrollContainer() {
   const NUM_ITEMS = commits.length;
@@ -538,58 +538,6 @@ function setupFileScrollContainer() {
   
   // Initial render
   renderFileItems(0);
-}
-
-// New function to update the file lines information based on scroll position
-function updateFileLinesFromScroll(startIndex) {
-  if (commits.length === 0) return;
-  
-  const visibleIndex = Math.min(startIndex, commits.length - 1);
-  const lines = commits[visibleIndex].lines;
-
-  displayCommitFiles(lines);
-}
-
-// Render file items with the specific format
-function renderFileItems() {
-  const ITEM_HEIGHT = 125;
-  const fileItemsContainer = d3.select('#file-items-container');
-  
-  // Clear existing items
-  fileItemsContainer.selectAll('*').remove();
-  
-  // Use all commits instead of slicing
-  const visibleCommits = commits;
-  
-  // Create item containers with appropriate spacing
-  const items = fileItemsContainer
-      .selectAll('div.item')
-      .data(visibleCommits)
-      .enter()
-      .append('div')
-      .attr('class', 'item')
-      .style('position', 'absolute')
-      .style('top', (_, idx) => `${idx * ITEM_HEIGHT}px`)
-      .style('left', '0')
-      .style('right', '0')
-      .style('height', 'auto')
-      .style('padding', '15px')
-      .style('margin-bottom', '20px')
-      .style('border-bottom', '1px solid #eee')
-      .style('overflow', 'hidden')
-      .style('border-radius', '4px')
-      .style('box-shadow', '0 1px 3px rgba(0,0,0,0.1)');
-  
-  // Add formatted content to each commit item using the requested format
-  items.html((commit, index) => `
-    <p class="commit-description" style="font-size: 16px; line-height: 1.5; margin-bottom: 8px;">
-      On ${commit.datetime.toLocaleString("en", {dateStyle: "full", timeStyle: "short"})}, I made
-      <a href="${commit.url}" target="_blank" style="color: #0366d6; text-decoration: none;">
-        ${index > 0 ? 'another glorious commit' : 'my first commit, and it was glorious'}
-      </a>. I edited ${commit.totalLines} lines across ${d3.rollups(commit.lines, D => D.length, d => d.file).length} files. Then I looked over all I had made, and
-      I saw that it was very good.
-    </p>
-  `);
 }
 
 // Main
