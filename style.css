@@ -302,21 +302,6 @@ circle.selected {
   margin: 0;
 }
 
-/* Commit Slider */
-#filter-container {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  width: 100%;
-}
-#commit-slider {
-  flex: 1;
-  width: 100%;
-}
-#selectedTime {
-  margin-left: 80%;
-}
-
 /* Storytelling */
 #scrollytelling {
   display: grid;
