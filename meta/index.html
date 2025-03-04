@@ -21,6 +21,24 @@
           <div id="items-container"></div>
       </div>
       <div id="chart"></div>
+      <dl id="commit-tooltip" class="info tooltip" hidden>
+        <dt>Commit</dt>
+        <dd>
+          <a href="" id="commit-link" target="_blank"></a>
+        </dd>
+  
+        <dt>Lines</dt>
+        <dd id="commit-edited"></dd>
+      
+        <dt>Date</dt>
+        <dd id="commit-date"></dd>
+  
+        <dt>Time</dt>
+        <dd id="commit-time"></dd>
+  
+        <dt>Author</dt>
+        <dd id="commit-author"></dd>
+      </dl>
     </div>
 
     <div id="file-scrollytelling">
@@ -43,25 +61,6 @@
       </dl>
     </div>
   
-    <dl id="commit-tooltip" class="info tooltip" hidden>
-        <dt>Commit</dt>
-        <dd>
-          <a href="" id="commit-link" target="_blank"></a>
-        </dd>
-
-        <dt>Lines</dt>
-        <dd id="commit-edited"></dd>
-      
-        <dt>Date</dt>
-        <dd id="commit-date"></dd>
-
-        <dt>Time</dt>
-        <dd id="commit-time"></dd>
-
-        <dt>Author</dt>
-        <dd id="commit-author"></dd>
-      </dl>
-
     <p id="selection-count">No commits selected</p>
     <dl id="language-breakdown" class="stats"></dl>
 

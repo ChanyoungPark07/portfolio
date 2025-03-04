@@ -69,6 +69,19 @@ function filterCommitsByTime() {
   updateStats();
   updateScatterplot(filteredCommits);
   updateLanguageBreakdown();
+}
+
+// Filter file commits by time
+function filterFileCommitsByTime() {
+  if (!commitMaxTime) {
+      filteredCommits = [...commits];
+  } else {
+      filteredCommits = commits.filter(commit => 
+          commit.datetime <= commitMaxTime
+      );
+  }
+
+  updateStats();
   displayCommitFiles();
 }
 
@@ -382,26 +395,6 @@ function updateLanguageBreakdown() {
   }
 }
 
-// Display commit files
-function displayCommitFiles() {
-  const lines = filteredCommits.flatMap((d) => d.lines);
-  let fileTypeColors = d3.scaleOrdinal(d3.schemeTableau10);
-  let files = d3.groups(lines, (d) => d.file).map(([name, lines]) => {
-    return { name, lines };
-  });
-  files = d3.sort(files, (d) => -d.lines.length);
-  d3.select('.files').selectAll('div').remove();
-  let filesContainer = d3.select('.files').selectAll('div').data(files).enter().append('div');
-  filesContainer.append('dt').html(d => `<code>${d.name}</code><small> --> ${d.lines.length} lines</small>`);
-  filesContainer.append('dd')
-                .selectAll('div')
-                .data(d => d.lines)
-                .enter()
-                .append('div')
-                .attr('class', 'line')
-                .style('background', d => fileTypeColors(d.type));
-}
-
 // Setup scroll container
 function setupScrollContainer() {
   const NUM_ITEMS = commits.length;
@@ -510,34 +503,24 @@ function renderItems() {
   });
 }
 
-// Setup scroll container for file lines information
-function setupFileScrollContainer() {
-  const NUM_ITEMS = commits.length;
-  const ITEM_HEIGHT = 100;
-  const totalHeight = NUM_ITEMS * ITEM_HEIGHT;
-  
-  const fileScrollContainer = d3.select('#file-scroll-container');
-  const fileSpacer = d3.select('#file-spacer');
-  const fileItemsContainer = d3.select('#file-items-container');
-  
-  // Set appropriate spacer height
-  fileSpacer.style('height', `${totalHeight}px`);
-  
-  // Clear existing items
-  fileItemsContainer.selectAll('*').remove();
-  
-  // Set up scroll event
-  fileScrollContainer.on('scroll', () => {
-      const scrollTop = fileScrollContainer.property('scrollTop');
-      let startIndex = Math.floor(scrollTop / ITEM_HEIGHT);
-      startIndex = Math.max(0, Math.min(startIndex, commits.length));
-      
-      updateFileLinesFromScroll(startIndex);
-      renderFileItems(startIndex);
+// Display commit files
+function displayCommitFiles() {
+  const lines = filteredCommits.flatMap((d) => d.lines);
+  let fileTypeColors = d3.scaleOrdinal(d3.schemeTableau10);
+  let files = d3.groups(lines, (d) => d.file).map(([name, lines]) => {
+    return { name, lines };
   });
-  
-  // Initial render
-  renderFileItems(0);
+  files = d3.sort(files, (d) => -d.lines.length);
+  d3.select('.files').selectAll('div').remove();
+  let filesContainer = d3.select('.files').selectAll('div').data(files).enter().append('div');
+  filesContainer.append('dt').html(d => `<code>${d.name}</code><small> --> ${d.lines.length} lines</small>`);
+  filesContainer.append('dd')
+                .selectAll('div')
+                .data(d => d.lines)
+                .enter()
+                .append('div')
+                .attr('class', 'line')
+                .style('background', d => fileTypeColors(d.type));
 }
 
 // Main
@@ -545,5 +528,102 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadData();
     processCommits();
     setupScrollContainer();
-    setupFileScrollContainer();
+    setupScrollContainerFile();
 });
+
+
+
+
+
+
+
+
+
+
+// Setup file scroll container
+function setupScrollContainerFile() {
+  const NUM_ITEMS = commits.length;
+  const ITEM_HEIGHT = 100;
+  const totalHeight = NUM_ITEMS * ITEM_HEIGHT;
+  
+  const scrollContainer = d3.select('#file-scroll-container');
+  const spacer = d3.select('#file-spacer');
+  const itemsContainer = d3.select('#file-items-container');
+  
+  // Set appropriate spacer height
+  spacer.style('height', `${totalHeight}px`);
+  
+  // Clear existing items
+  itemsContainer.selectAll('*').remove();
+  
+  // Set up scroll event
+  scrollContainer.on('scroll', () => {
+      const scrollTop = scrollContainer.property('scrollTop');
+      let startIndex = Math.floor(scrollTop / ITEM_HEIGHT);
+      startIndex = Math.max(0, Math.min(startIndex, commits.length));
+      
+      updateTimeFilterFromScrollFile(startIndex);
+      renderItemsFile(startIndex);
+  });
+  
+  // Initial render
+  renderItemsFile(0);
+  
+  // Set initial time filter to the first commit's datetime
+  if (commits.length > 0) {
+    commitMaxTime = commits[0].datetime;
+    filterFileCommitsByTime();
+  }
+}
+
+// Function to update the time filter based on scroll position
+function updateTimeFilterFromScrollFile(startIndex) {
+  if (commits.length === 0) return;
+  
+  const visibleIndex = Math.min(startIndex, commits.length - 1);
+  commitMaxTime = commits[visibleIndex].datetime;
+
+  filterFileCommitsByTime();
+}
+
+// Render items with the specific format
+function renderItemsFile() {
+  const ITEM_HEIGHT = 125;
+  const itemsContainer = d3.select('#file-items-container');
+  
+  // Clear existing items
+  itemsContainer.selectAll('*').remove();
+  
+  // Use all commits instead of slicing
+  const visibleCommits = commits;
+  
+  // Create item containers with appropriate spacing
+  const items = itemsContainer
+      .selectAll('div.item')
+      .data(visibleCommits)
+      .enter()
+      .append('div')
+      .attr('class', 'item')
+      .style('position', 'absolute')
+      .style('top', (_, idx) => `${idx * ITEM_HEIGHT}px`)
+      .style('left', '0')
+      .style('right', '0')
+      .style('height', 'auto')
+      .style('padding', '15px')
+      .style('margin-bottom', '20px') // Increased margin-bottom for more spacing
+      .style('border-bottom', '1px solid #eee')
+      .style('overflow', 'hidden')
+      .style('border-radius', '4px')
+      .style('box-shadow', '0 1px 3px rgba(0,0,0,0.1)');
+  
+  // Add formatted content to each commit item using the requested format
+  items.html((commit, index) => `
+    <p class="commit-description" style="font-size: 16px; line-height: 1.5; margin-bottom: 8px;">
+      On ${commit.datetime.toLocaleString("en", {dateStyle: "full", timeStyle: "short"})}, I made
+      <a href="${commit.url}" target="_blank" style="color: #0366d6; text-decoration: none;">
+        ${index > 0 ? 'another glorious commit' : 'my first commit, and it was glorious'}
+      </a>. I edited ${commit.totalLines} lines across ${d3.rollups(commit.lines, D => D.length, d => d.file).length} files. Then I looked over all I had made, and
+      I saw that it was very good.
+    </p>
+  `);
+}
