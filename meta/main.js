@@ -523,23 +523,6 @@ function displayCommitFiles() {
                 .style('background', d => fileTypeColors(d.type));
 }
 
-// Main
-document.addEventListener('DOMContentLoaded', async () => {
-    await loadData();
-    processCommits();
-    setupScrollContainer();
-    setupScrollContainerFile();
-});
-
-
-
-
-
-
-
-
-
-
 // Setup file scroll container
 function setupScrollContainerFile() {
   const NUM_ITEMS = commits.length;
@@ -627,3 +610,11 @@ function renderItemsFile() {
     </p>
   `);
 }
+
+// Main
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadData();
+  processCommits();
+  setupScrollContainer();
+  setupScrollContainerFile();
+});
